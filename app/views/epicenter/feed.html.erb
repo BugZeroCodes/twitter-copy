@@ -1,0 +1,36 @@
+<h1><%= current_user.username %>'s Twitter Feed</h1>
+<style type="text/css">
+  .tweet {
+    background-color: gray;
+    border-radius: 10px;
+  }
+</style>
+<% if @following_tweets.length == 0 %>
+  <p>No Tweets yet!!!</p>
+  <br />
+  <p>Make a new one <%= link_to 'here.', new_tweet_path %></p>
+<% else %>
+<p>Tweets currently: <%= @following_tweets.length %></p>
+<p>Here is what your friends are saying:</p>
+  <div class='well'>
+      <% @following_tweets.each do |tweet| %>
+          <div class='tweet'>
+  	        <p><%= tweet.user.username %></p>
+  	        <p><%= tweet.message.html_safe %></p>
+            <hr />
+  	      </div>
+    <% end %>
+    <% @following_tweets.each do |tweet| %>
+      <div class="well">
+        <p>
+          <%= image_tag tweet.user.avatar.url, class: "user-pic-nav" %>
+          <%= link_to tweet.user.name, show_user_path(id: tweet.user_id) %>
+          @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %>
+          <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %>
+<%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %> 
+        </p>
+        <p><%= tweet.message.html_safe %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>
