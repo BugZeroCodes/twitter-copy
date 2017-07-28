@@ -10,6 +10,7 @@
       }
       .navbar-collapse.collapse {
         background-color: black;
+        background-attachment: scroll;
       }
       td {
         border: 5px groove #ffaadd;
@@ -22,6 +23,42 @@
       }
       .well {
         background-color: gray;
+      }
+      body {
+        background-image: repeating-radial-gradient(red, blue);
+      }
+      .btn.btn-primary {
+        background-color: blue;
+        border-color: inherit;
+      }
+      .btn.btn-default {
+        background-color: white;
+        border-color: black;
+      }
+      .btn.btn-default:hover {
+        background-color: white;
+        border-color: black;
+      }
+      .btn.btn-success {
+        background-color: lime;
+        border-color: green;
+      }
+      .btn.btn-warning {
+        background-color: orange;
+        border-color: inherit;
+      }
+      .semi {
+        display: inline;
+      }
+      .danger-zone {
+        border-radius: 10px;
+        border: 1px solid darkred;
+      }
+      .main-content {
+        border: 5px solid green;
+      }
+      .user-pic-nav {
+        border-radius: 50px;
       }
     </style>
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -44,20 +81,30 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><%= link_to "Make a New Tweet", new_tweet_path %></li>
-          <li><%= link_to "All Users", all_users_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to "Make a New Tweet", new_tweet_path %></li>
+            <li><%= link_to "All Users", all_users_path %></li>
+            <li><a href='/tweets'>View your tweets</a></li>
+            <% if user_signed_in? %>
+              <li><%= link_to 'Show Profile', show_user_path(id: current_user.id) %></li>
+            <% end %>
+            <% if user_signed_in? %>
+              <li><a href="/users/edit">Edit profile</a></li>
+            <% end %>
+          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                 <% if !current_user.avatar.blank? %>
-                  <%= image_tag current_user.avatar.url, width: 60, height: 50, class: "user-pic-nav", style: 'border-radius: 10px;' %>
+                  <%= image_tag current_user.avatar.url, width: 50, height: 50, class: "user-pic-nav" %>
                 <% end %>
                 <%= current_user.username %> <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
                 <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+                <li><%= link_to 'About your account', about_account_url %></li>
               </ul>
             </li>
           <% end %>
@@ -69,5 +116,7 @@
     <p id='notice' class='alert alert-info'><%= notice %></p>
   <% end %>
   <%= yield %>
+  <br />
+  <p>Copyright 2017 &#8226; All Rights Reserved.</p>
   </body>
 </html>

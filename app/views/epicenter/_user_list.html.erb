@@ -1,10 +1,13 @@
 <div class="row">
+  <h1 style="text-align: center; vertical-align: middle;">All Users</h1>
   <% @users.each do |user| %>
     <div class="col-md-3">
       <div class="well user-list-wells">
         <div class="row">
           <div class="col-md-6">
-            <%= image_tag user.avatar.url, class: "user-pic-md", width: 150, height: 150 %>
+            <% if !current_user.avatar.blank? %>
+              <%= image_tag user.avatar.url, class: "user-pic-md", width: 170, height: 150 %>
+            <% end %>
           </div>
         </div>
         <div class="row">
@@ -17,7 +20,7 @@
                   <%= link_to "Following", unfollow_path(id: user.id), class: "btn btn-primary unfollow_btn" %>
                 <% else %>
                   <% if current_user.id != user.id %>
-                    <%= link_to "Follow", now_following_path(id: user.id), class: "btn btn-primary" %>
+                    <%= link_to "Follow #{user.username}", now_following_path(id: user.id), class: "btn btn-primary" %>
                   <% end %>
                 <% end %>
               </p>
@@ -31,3 +34,4 @@
     </div>
   <% end %>
 </div>
+<a href='/tweets'>Go to Profile</a>

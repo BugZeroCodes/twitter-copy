@@ -1,23 +1,52 @@
-<h1>@<%= @user.username %>'s Profile &amp; Tweets</h1>
-
-<p><%= @user.name %></p>
-<p><%= @user.location %></p>
-<p><%= @user.bio %></p>
-
+<% if @user.username != current_user.username %>
+  <h1><%= @user.username %>'s Profile &amp; Tweets</h1>
+<% else %>
+  <h1>Your Profile &amp; Tweets</h1>
+<% end %>
+<style type='text/css'>
+  .semi {
+    display: inline;
+  }
+  ol {
+    list-style-type: decimal-leading-zero;
+  }
+</style>
+<h3>Data:</h3>
+<div class='well'>
+  <% if @user.name != '' %>
+    <p class='semi'>Name: </p>
+    <p class='semi'><%= @user.name %></p><br />
+  <% end %>
+  <% if @user.bio != '' %>
+    <p class='semi'>Bio: </p>
+    <p class="semi"><%= @user.bio %></p>
+  <% end %>
+</div>
+<% if current_user.username == @user.username %>
+  <a href='users/edit' class='btn btn-warning'>Edit profile</a>
+<% end %>
 <p>
 <% if current_user.following.include?(@user.id) %>
-       <%= link_to "Following", unfollow_path(id: @user.id), class: "btn btn-primary", id: 'unfollow_btn' %>
+       <%= link_to "Following", unfollow_path(id: @user.id), class: "btn btn-primary unfollow_btn" %>
     <% else %>
         <% if current_user.id != @user.id %>
-	        <%= link_to "Follow", now_following_path(id: @user.id), class: "btn btn-primary" %>
+	        <%= link_to "Follow #{@user.username}", now_following_path(id: @user.id), class: "btn btn-primary" %>
 	<% end %>
     <% end %>
+    <% if @user.id == current_user.id %>
+      <p>Can't follow yourself!</p>
+    <% end %>
 </p>
-
-<% @user.tweets.each do |tweet| %>
-    <h3>Tweets</h3>
-    <div class='well'>
-        <p>@<%= @user.username %></p>
-	<p><%= tweet.message %></p>
-    </div>
+<% if @user.tweets.length > 0 %>
+  <h3>Tweets</h3>
+  <div class="well">
+    <ol>
+    <% @user.tweets.each do |tweet| %>
+          <li><%= tweet.message.html_safe %></li>
+          <% if @user.username == current_user.username %>
+            <%= link_to 'Delete', tweet, method: :delete, data: { confirm: "Are you sure?\n This cannot be undone." }, class: 'btn btn-danger' %>
+          <% end %>
+    <% end %>
+  </ol>
+  </div>
 <% end %>

@@ -1,9 +1,8 @@
 $(document).ready(function(){
   $('.unfollow_btn').hover(function(){
-    console.log('Hovered!!!');
     $(this).removeClass('btn-primary');
     $(this).addClass('btn-danger');
-    $(this).html("Unfollow");
+    $(this).html("Unfollow User");
   }, function(){
     $(this).html("Following");
     $(this).removeClass('btn-danger');

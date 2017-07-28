@@ -1,36 +1,30 @@
-<h1><%= current_user.username %>'s Twitter Feed</h1>
-<style type="text/css">
-  .tweet {
-    background-color: gray;
-    border-radius: 10px;
-  }
-</style>
+<h1>Your Twitter Feed</h1>
 <% if @following_tweets.length == 0 %>
   <p>No Tweets yet!!!</p>
   <br />
-  <p>Make a new one <%= link_to 'here.', new_tweet_path %></p>
+  <p>You can be the first by making a new one <%= link_to 'here.', new_tweet_path %></p>
 <% else %>
-<p>Tweets currently: <%= @following_tweets.length %></p>
-<p>Here is what your friends are saying:</p>
-  <div class='well'>
+  <% if @following_tweets.length == 1 %>
+    <p><i><%= @following_tweets.length %></i> tweet</p>
+  <% elsif @following_tweets.length > 0 %>
+      <p><i><%= @following_tweets.length %></i> tweets</p>
+  <% end %>
+  <p>Here is what your friends have been saying:</p>
+    <div class='well' style='background-color: gray; box-shadow: inset 0px 1px 20px 11px black; text-shadow: 1px 0px 3px black;'>
       <% @following_tweets.each do |tweet| %>
-          <div class='tweet'>
-  	        <p><%= tweet.user.username %></p>
-  	        <p><%= tweet.message.html_safe %></p>
-            <hr />
-  	      </div>
+        <div class="well" style='background-color: navy;'>
+            <p>
+              <%= image_tag tweet.user.avatar.url, class: "user-pic-nav", style: 'width: 67px; height: 67px;' %>
+              <%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %> •
+              <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %>
+    <%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %>
+    <% if current_user.username == tweet.user.username %>
+      | <a href='/users/edit'>Update Profile</a>
     <% end %>
-    <% @following_tweets.each do |tweet| %>
-      <div class="well">
-        <p>
-          <%= image_tag tweet.user.avatar.url, class: "user-pic-nav" %>
-          <%= link_to tweet.user.name, show_user_path(id: tweet.user_id) %>
-          @<%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %>
-          <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %>
-<%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %> 
-        </p>
-        <p><%= tweet.message.html_safe %></p>
-      </div>
+            </p>
+          <p class='semi'><%= tweet.message.html_safe %></p>
+        </div>
+        <hr />
     <% end %>
   <% end %>
 </div>
