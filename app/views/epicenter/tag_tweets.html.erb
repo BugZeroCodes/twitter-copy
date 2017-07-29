@@ -4,7 +4,7 @@
 
 <div class="row">
   <!-- a place for current user stats -->
-  <div class='well'>
+  <div class='well' style='background-color: red;'>
     <% @tag.tweets.order(created_at: :desc).each do |tweet| %>
         <p>
 	    <%= tweet.user.name %> | <%= link_to tweet.user.username, show_user_path(id: tweet.user.id) %>

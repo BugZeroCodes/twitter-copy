@@ -25,7 +25,7 @@
         background-color: gray;
       }
       body {
-        background-image: repeating-radial-gradient(red, blue);
+        background-image: radial-gradient(red, blue);
       }
       .btn.btn-primary {
         background-color: blue;
@@ -59,6 +59,11 @@
       }
       .user-pic-nav {
         border-radius: 50px;
+      }
+      .basic {
+        border: 1px solid aqua;
+        border-radius: 5px;
+        color: blue;
       }
     </style>
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -100,11 +105,14 @@
                 <% if !current_user.avatar.blank? %>
                   <%= image_tag current_user.avatar.url, width: 50, height: 50, class: "user-pic-nav" %>
                 <% end %>
+                <% if !current_user.tag.nil? %>
+                  =<%= tag.span current_user.tag, style: "color: #{current_user.color}" %>= |
+                <% end %>
                 <%= current_user.username %> <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
-                <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
                 <li><%= link_to 'About your account', about_account_url %></li>
+                <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
               </ul>
             </li>
           <% end %>
@@ -117,6 +125,6 @@
   <% end %>
   <%= yield %>
   <br />
-  <p>Copyright 2017 &#8226; All Rights Reserved.</p>
+  <p>Copyright 2017 &copy; &#8226; All Rights Reserved.</p>
   </body>
 </html>

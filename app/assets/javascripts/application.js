@@ -12,6 +12,7 @@
 //
 //= require rails-ujs
 //= require jquery
+//= require jquery.minicolors
 //= require bootstrap-sprockets
 //= require_tree .
 $(document).ready(function(){
@@ -24,4 +25,7 @@ $(document).ready(function(){
     $(this).removeClass('btn-danger');
     $(this).addClass('btn-primary');
   });
-})
+});
+$(document).ready(function() {
+  $('#user_color').minicolors();
+});

@@ -13,7 +13,9 @@
         <div class="row">
           <%= link_to show_user_path(id: user.id) do %>
             <h3><%= user.name %></h3>
-            <p><%= user.username %></p>
+            <% if !user.tag.nil? %>
+              =<%= tag.span user.tag, style: "color: #{user.color}" %>= | <%= user.username %>
+            <% end %>
             <div class="col-md-6">
               <p>
                 <% if current_user.following.include?(user.id) %>
@@ -34,4 +36,3 @@
     </div>
   <% end %>
 </div>
-<a href='/tweets'>Go to Profile</a>

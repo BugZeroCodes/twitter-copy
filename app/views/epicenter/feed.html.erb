@@ -13,15 +13,15 @@
     <div class='well' style='background-color: gray; box-shadow: inset 0px 1px 20px 11px black; text-shadow: 1px 0px 3px black;'>
       <% @following_tweets.each do |tweet| %>
         <div class="well" style='background-color: navy;'>
-            <p>
+            <p class='semi'>
               <%= image_tag tweet.user.avatar.url, class: "user-pic-nav", style: 'width: 67px; height: 67px;' %>
+              <% if !current_user.tag.blank? %>
+                =<%= tag.span tweet.user.tag, style: "color: #{tweet.user.color}" %>= |
+              <% end %>
               <%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %> •
               <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %>
     <%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %>
-    <% if current_user.username == tweet.user.username %>
-      | <a href='/users/edit'>Update Profile</a>
-    <% end %>
-            </p>
+  </p> |
           <p class='semi'><%= tweet.message.html_safe %></p>
         </div>
         <hr />

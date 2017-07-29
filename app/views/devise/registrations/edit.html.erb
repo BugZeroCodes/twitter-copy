@@ -28,7 +28,7 @@
     </div>
 
     <div class="field">
-      <%= f.label :current_password %> <i>(we need your current password to confirm the changes)</i><br />
+      <%= f.label :current_password %> <i>(enter your current password to confirm changes)</i><br />
       <%= f.password_field :current_password, autocomplete: "off" %>
     </div>
 
@@ -56,8 +56,19 @@
     <div class="form-group">
       <%= f.text_area :bio, placeholder: "Tell us about yourself...", class: "form-control" %>
     </div>
+
+    <div class="form-group">
+      <%= f.label :tag %>
+      <%= f.text_field :tag, placeholder: 'Enter a tag...', class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :color %>
+      <%= f.text_field :color, placeholder: 'Color', as: :minicolors, class: 'form-control' %>
+    </div>
   <% end %>
 </div>
+<br />
 <h3>Danger Zone</h3>
 <div class='danger-zone'>
   <h3>Delete my account</h3>
