@@ -47,13 +47,11 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :tag %>
-    <%= f.text_field :tag, placeholder: 'Enter a tag...', class: 'form-control' %>
+    <%= f.hidden_field :tag, placeholder: 'Enter a tag...', class: 'form-control', value: 'Newbie' %>
   </div>
 
   <div class="form-group">
-    <%= f.label :color %>
-    <%= f.text_field :color, placeholder: 'Color', class: 'form-control' %>
+    <%= f.hidden_field :color, placeholder: 'Color', class: 'form-control', value: '#808080' %>
   </div>
 <% end %>
 

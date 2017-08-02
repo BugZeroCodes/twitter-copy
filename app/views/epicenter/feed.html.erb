@@ -1,3 +1,6 @@
+<div class="pull-right">
+  <a href>Refresh page</a>
+</div>
 <h1>Your Twitter Feed</h1>
 <% if @following_tweets.length == 0 %>
   <p>No Tweets yet!!!</p>
@@ -9,19 +12,19 @@
   <% elsif @following_tweets.length > 0 %>
       <p><i><%= @following_tweets.length %></i> tweets</p>
   <% end %>
-  <p>Here is what your friends have been saying:</p>
+  <p>Here's what's been going on:</p>
     <div class='well' style='background-color: gray; box-shadow: inset 0px 1px 20px 11px black; text-shadow: 1px 0px 3px black;'>
       <% @following_tweets.each do |tweet| %>
         <div class="well" style='background-color: navy;'>
             <p class='semi'>
               <%= image_tag tweet.user.avatar.url, class: "user-pic-nav", style: 'width: 67px; height: 67px;' %>
-              <% if !current_user.tag.blank? %>
-                =<%= tag.span tweet.user.tag, style: "color: #{tweet.user.color}" %>= |
-              <% end %>
-              <%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %> •
               <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %>
-    <%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %>
-  </p> |
+    <%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %> |
+              <% if !tweet.user.tag.blank? %>
+                =<%= tag.span tweet.user.tag, style: "color: #{tweet.user.color}" %>=
+              <% end %>
+              <%= link_to tweet.user.username, show_user_path(id: tweet.user_id) %>:
+  </p>
           <p class='semi'><%= tweet.message.html_safe %></p>
         </div>
         <hr />

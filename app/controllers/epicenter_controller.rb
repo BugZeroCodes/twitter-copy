@@ -1,6 +1,6 @@
 class EpicenterController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:new_tweet_path]
 
   def feed
     @following_tweets = []

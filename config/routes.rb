@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'followers' => 'epicenter#followers'
 
   get 'about_account' => 'epicenter#about_account'
-  
+
   resources :tweets
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
