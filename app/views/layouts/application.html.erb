@@ -88,9 +88,9 @@
           <span class="icon-bar"></span>
         </button>
         <% if user_signed_in? %>
-          <% if current_user.tag == 'Admin' || current_user.tag == 'Administrator' %>
-            <%= link_to "Home", root_path, class: "navbar-brand" %>
-          <% end %>
+        <% if current_user.tag == 'Admin' || current_user.tag == 'Administrator' %>
+        <%= link_to "Home", root_path, class: "navbar-brand" %>
+        <% end %>
         <% end %>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -106,14 +106,14 @@
           <li><%= link_to 'About your account', about_account_url %></li>
           <% end %>
           <% if user_signed_in? %>
-            <li class='dropdown'>
-              <a href class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup="true" aria-expanded='false'>
-                Options <span class='caret'></span>
-                <ul class='dropdown-menu'>
-                  <li><a href onclick="overwrite()">(TEMPORARY)Overwrite all content</a></li>
-                </ul>
-              </a>
-            </li>
+          <li class='dropdown'>
+            <a href class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup="true" aria-expanded='false'>
+              Options <span class='caret'></span>
+              <ul class='dropdown-menu'>
+                <li><a href onclick="overwrite()">(TEMPORARY)Overwrite all content</a></li>
+              </ul>
+            </a>
+          </li>
           <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
