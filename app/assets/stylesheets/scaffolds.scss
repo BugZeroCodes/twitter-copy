@@ -24,12 +24,13 @@ a {
   text-decoration: none;
 
   &:visited {
-    color: #666;
+    color: gray;
+    font-size: 50px;
   }
 
   &:hover {
     color: #fff;
-    background-color: #000;
+    background-color: black;
     text-decoration: underline;
   }
 }
@@ -83,4 +84,12 @@ div {
 
 label {
   display: block;
+}
+.btn.btn-danger:hover {
+  background-color: red;
+  border-color: darkred;
+}
+.btn.btn-danger:active {
+  background-color: red;
+  border-color: darkred;
 }
