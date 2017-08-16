@@ -1,35 +1,83 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TTS Twitter</title>
-    <%= csrf_meta_tags %>
-    <style type="text/css">
-      .btn.btn-danger {
-        background-color: red;
-        border-color: darkred;
-      }
-      .navbar-collapse.collapse {
-        background-color: black;
-      }
-      td {
-        border: 5px groove #ffaadd;
-      }
-      ul.dropdown-menu {
-        box-shadow: -4px 2px 20px 3px black;
-      }
-      .table {
-        box-shadow: 9px 6px 20px 3px black;
-      }
-      .well {
-        background-color: gray;
-      }
-    </style>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>TTS Twitter</title>
+  <%= csrf_meta_tags %>
+  <style type="text/css">
+  .btn.btn-danger {
+    background-color: red;
+    border-color: darkred;
+  }
+  .navbar-collapse.collapse {
+    background-color: black;
+    background-attachment: scroll;
+  }
+  td {
+    border: 5px groove #ffaadd;
+  }
+  ul.dropdown-menu {
+    box-shadow: -4px 2px 20px 3px black;
+  }
+  .table {
+    box-shadow: 9px 6px 20px 3px black;
+  }
+  .well {
+    background-color: gray;
+  }
+  body {
+    background-image: radial-gradient(red, blue);
+  }
+  .btn.btn-primary {
+    background-color: blue;
+    border-color: inherit;
+  }
+  .btn.btn-default {
+    background-color: white;
+    border-color: black;
+  }
+  .btn.btn-default:hover {
+    background-color: white;
+    border-color: black;
+  }
+  .btn.btn-success {
+    background-color: lime;
+    border-color: green;
+  }
+  .btn.btn-warning {
+    background-color: orange;
+    border-color: inherit;
+  }
+  .semi {
+    display: inline;
+  }
+  .danger-zone {
+    border-radius: 10px;
+    border: 1px solid darkred;
+  }
+  .main-content {
+    border: 5px solid green;
+  }
+  .user-pic-nav {
+    border-radius: 50px;
+  }
+  .basic {
+    border: 1px solid aqua;
+    border-radius: 5px;
+    color: darkblue;
+  }
+  .show-user {
+    border: 5px solid lightgray
+  }
+  </style>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+</head>
 
-  <body>
-    <nav class="navbar-collapse collapse">
+<body>
+  <nav class="navbar-collapse collapse">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
@@ -39,35 +87,74 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
+        <% if user_signed_in? %>
+        <% if current_user.tag == 'Admin' || current_user.tag == 'Administrator' %>
         <%= link_to "Home", root_path, class: "navbar-brand" %>
+        <% end %>
+        <% end %>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
+          <% if user_signed_in? %>
           <li><%= link_to "Make a New Tweet", new_tweet_path %></li>
-          <li><%= link_to "All Users", all_users_path %></li>
+          <li><%= link_to "View all Users", all_users_path %></li>
+          <li><a href='/tweets'>View your tweets</a></li>
+          <% if user_signed_in? %>
+          <li><%= link_to 'Show Profile', show_user_path(id: current_user.id) %></li>
+          <% end %>
+          <li><%= link_to 'About your account', about_account_url %></li>
+          <% end %>
+          <% if user_signed_in? %>
+          <li class='dropdown'>
+            <a href class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup="true" aria-expanded='false'>
+              Options <span class='caret'></span>
+              <ul class='dropdown-menu'>
+                <li><a href onclick="overwrite()">(TEMPORARY)Overwrite all content</a></li>
+              </ul>
+            </a>
+          </li>
+          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <% if user_signed_in? %>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <% if !current_user.avatar.blank? %>
-                  <%= image_tag current_user.avatar.url, width: 60, height: 50, class: "user-pic-nav", style: 'border-radius: 10px;' %>
-                <% end %>
-                <%= current_user.username %> <span class="caret"></span></a>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <% if !current_user.avatar.blank? %>
+              <%= image_tag current_user.avatar.url, width: 50, height: 50, class: "user-pic-nav" %>
+              <% end %>
+              <% if user_signed_in? %>
+              <% if !current_user.tag.nil? %>
+              =<%= tag.span current_user.tag, style: "color: #{current_user.color}" %>= |
+              <% end %>
+              <% end %>
+              <%= current_user.username %> <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
                 <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
               </ul>
             </li>
-          <% end %>
-        </ul>
+            <% end %>
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
-  <% if notice != nil %>
+    </nav>
+    <% if notice != nil %>
     <p id='notice' class='alert alert-info'><%= notice %></p>
-  <% end %>
-  <%= yield %>
+    <% end %>
+    <%= yield %>
+    <br />
+    <p>Copyright 2017 &copy; &#8226; All Rights Reserved.</p>
+    <script>
+    function overwrite () {
+      alert('WARNING:\n\nPosing as an owner/mod/admin/developer may result in temporary loss of this tag option.')
+      var overwrite = prompt('Enter a word or phrase:');
+      if (overwrite != null && overwrite != '') {
+        document.write(overwrite)
+      } else {
+        alert('Invalid message or phrase.')
+      }
+    }
+    </script>
   </body>
-</html>
+  </html>

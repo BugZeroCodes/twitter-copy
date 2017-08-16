@@ -1,6 +1,6 @@
 class EpicenterController < ApplicationController
 
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:new_tweet_path]
 
   def feed
     @following_tweets = []
@@ -19,14 +19,14 @@ class EpicenterController < ApplicationController
     current_user.following.push(params[:id].to_i)
     current_user.save
 
-    redirect_to show_user_path(id: params[:id])
+    redirect_to request.referrer
   end
 
   def unfollow
     current_user.following.delete(params[:id].to_i)
-  current_user.save
+    current_user.save
 
-  redirect_to show_user_path(id: params[:id])
+    redirect_to request.referrer
   end
   def tag_tweets
     @tag = Tag.find(params[:id])
@@ -59,5 +59,10 @@ class EpicenterController < ApplicationController
         @users.push(user)
       end
     end
+  end
+
+  def about_account
+    @created_at = current_user.created_at
+    @just_updated = current_user.updated_at
   end
 end

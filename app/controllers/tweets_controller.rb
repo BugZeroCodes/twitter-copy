@@ -6,11 +6,14 @@ class TweetsController < ApplicationController
   # GET /tweets.json
   def index
     @tweets = Tweet.all.page(params[:page])
+    @followed_users = User.where(id: current_user.following)
+    @tweets = current_user.tweets
   end
 
   # GET /tweets/1
   # GET /tweets/1.json
   def show
+    @tweets = current_user.tweets
   end
 
   # GET /tweets/new
@@ -20,6 +23,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1/edit
   def edit
+    @tweets = current_user.tweets
   end
 
   # POST /tweets
@@ -30,7 +34,7 @@ class TweetsController < ApplicationController
     @tweet = get_tagged(@tweet)
     respond_to do |format|
       if @tweet.save
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
+        format.html { redirect_to @tweet, notice: 'Tweet has been successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
       else
         format.html { render :new }
@@ -44,7 +48,7 @@ class TweetsController < ApplicationController
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully updated.' }
+        format.html { redirect_to @tweet, notice: 'Tweet has been successfully updated.' }
         format.json { render :show, status: :ok, location: @tweet }
       else
         format.html { render :edit }
@@ -58,7 +62,7 @@ class TweetsController < ApplicationController
   def destroy
     @tweet.destroy
     respond_to do |format|
-      format.html { redirect_to tweets_url, notice: 'Tweet was successfully destroyed.' }
+      format.html { redirect_to tweets_url, notice: 'Tweet has been successfully deleted.' }
       format.json { head :no_content }
     end
   end

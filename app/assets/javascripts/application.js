@@ -11,18 +11,21 @@
 // about supported directives.
 //
 //= require rails-ujs
-//= require turbolinks
 //= require jquery
+//= require jquery.minicolors
 //= require bootstrap-sprockets
 //= require_tree .
 $(document).ready(function(){
-  $('#unfollow_btn').hover(function(){
+  $('.unfollow_btn').hover(function(){
     $(this).removeClass('btn-primary');
     $(this).addClass('btn-danger');
-    $(this).html("Unfollow");
+    $(this).html("Unfollow this user");
   }, function(){
-    $(this).html("Following");
+    $(this).html("Already following");
     $(this).removeClass('btn-danger');
     $(this).addClass('btn-primary');
   });
-})
+});
+$(document).ready(function() {
+  $('#user_color').minicolors();
+});
