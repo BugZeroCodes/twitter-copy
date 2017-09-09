@@ -23,9 +23,8 @@
 	        <%= link_to "Follow #{@user.username}", now_following_path(id: @user.id), class: "btn btn-primary" %>
 	<% end %>
     <% end %>
-    <% if @user.id == current_user.id %>
-      <p>Can't follow yourself!</p>
-    <% end %>
+
+  <p>Age: <%= @user.age %></p>
 </p>
 <% if @user.tweets.length > 0 %>
   <h3>Tweets</h3>

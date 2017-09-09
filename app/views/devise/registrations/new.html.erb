@@ -51,6 +51,11 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :age %>
+    <%= f.number_field :age, max: 13, min: 0, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
     <%= f.hidden_field :color, placeholder: 'Color', class: 'form-control', value: '#808080' %>
   </div>
 <% end %>
