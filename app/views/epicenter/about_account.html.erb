@@ -1,7 +1,7 @@
 <div class='basic'>
-  <label for="created-at">You created your account at: <%= current_user.created_at %></label>
+  <label for="created-at">You signed in on: <%= current_user.created_at %></label>
   <br />
-  <label for="updated-at">You were recently on at: <%= current_user.updated_at %></label>
+  <label for="updated-at">Most recent activity: <%= current_user.updated_at %></label>
   <br />
   <label for="tweets">You have <%= current_user.tweets.length %> tweets</label>
   <br />
