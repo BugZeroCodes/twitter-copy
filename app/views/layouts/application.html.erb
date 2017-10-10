@@ -95,7 +95,7 @@
           <% if user_signed_in? %>
           <li><%= link_to "Make a New Tweet", new_tweet_path %></li>
           <li><%= link_to "View all Users", all_users_path %></li>
-          <li><a href='/tweets'>View your tweets</a></li>
+          <li><%= link_to "View Your Tweets", tweet_path %></li>
           <% if user_signed_in? %>
           <li><%= link_to 'Show Profile', show_user_path(id: current_user.id) %></li>
           <% end %>
