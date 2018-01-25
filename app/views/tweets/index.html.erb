@@ -30,6 +30,13 @@
               <p>You have no followers. Get followers <a href='/all_users'>here.</a></p>
             <% end %>
           </td>
+          <td><% if @tweets.length == 1 %>
+              You have <%= @tweets.length %> tweet.</li>
+              <% elsif @tweets > 0 %>
+              You have <%= @tweets.length %> tweets.</li>
+              <% else %>
+                <p>You have no tweets! Get tweets <%= link_to "here now!", new_tweet_path %></p>
+              <% end %></td>
       </tr>
     <% end %>
   </tbody>
