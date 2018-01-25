@@ -1,11 +1,9 @@
-<div class="pull-right">
-  <a href>Refresh page</a>
-</div>
-<h1>Your Twitter Feed</h1>
+<h1>YOUR TWITTER FEED</h1>
 <% if @following_tweets.length == 0 %>
   <p>No Tweets yet!!!</p>
   <br />
-  <p>You can be the first by making a new one <%= link_to 'here.', new_tweet_path %></p>
+  <p>You can be the first by making a new one below.</p>
+  <hr style="border: 2px solid black" />
 <% else %>
   <% if @following_tweets.length == 1 %>
     <p><i><%= @following_tweets.length %></i> tweet</p>

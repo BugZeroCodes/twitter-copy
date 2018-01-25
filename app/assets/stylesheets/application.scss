@@ -38,7 +38,7 @@ ul.dropdown-menu {
   background-color: gray;
 }
 body {
-  background-image: radial-gradient(azure, blue);
+  background-color: #d9f6fe;
 }
 .btn.btn-primary {
   background-color: blue;
@@ -96,4 +96,8 @@ th {
   border-right: 5px double red;
   border-left: 5px double red;
   border-top: 5px double red;
+}
+#special {
+  margin: 1px;
+  background-color: #e5e3e4;
 }
