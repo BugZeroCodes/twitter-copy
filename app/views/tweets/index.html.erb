@@ -22,22 +22,21 @@
         <td><%= link_to 'Show', tweet, class: 'btn btn-success' %></td>
         <td><%= link_to 'Edit', edit_tweet_path(tweet), class: 'btn btn-warning' %></td>
         <td><%= link_to 'Delete', tweet, method: :delete, data: { confirm: "Are you sure?\n This cannot be undone." }, class: 'btn btn-danger' %></td>
-        <td><% if @followed_users.length == 1 %>
-            Following <%= @followed_users.length %> person</li>
-            <% elsif @followed_users.length > 0 %>
-            Following <%= @followed_users.length %> people</li>
-            <% else %>
-              <p>You have no followers. Get followers <a href='/all_users'>here.</a></p>
-            <% end %>
-          </td>
-          <td><% if @tweets.length == 1 %>
-              You have <%= @tweets.length %> tweet.</li>
-              <% elsif @tweets > 0 %>
-              You have <%= @tweets.length %> tweets.</li>
-              <% else %>
-                <p>You have no tweets! Get tweets <%= link_to "here now!", new_tweet_path %></p>
-              <% end %></td>
       </tr>
+    <% end %>
+    <% if @followed_users.length == 1 %>
+    Following <%= @followed_users.length %> person</li>
+    <% elsif @followed_users.length > 0 %>
+    Following <%= @followed_users.length %> people</li>
+    <% else %>
+    <p>You have no followers. Get followers <a href='/all_users'>here.</a></p>
+    <% end %>
+    <% if @tweets.length == 1 %>
+    You have <%= @tweets.length %> tweet.</li>
+    <% elsif @tweets > 0 %>
+    You have <%= @tweets.length %> tweets.</li>
+    <% else %>
+    <p>You have no tweets! Get tweets <%= link_to "here now!", new_tweet_path %></p>
     <% end %>
   </tbody>
 </table>
