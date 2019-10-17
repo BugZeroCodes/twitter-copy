@@ -24,7 +24,7 @@
               <% end %>
               <%= link_to tweet.user.username, show_user_path(id: tweet.user_id), class: 'white' %>:
   </p>
-          <p class='semi'><%= tweet.message.html_safe, class: 'white' %></p>
+          <p class='semi white'><%= tweet.message.html_safe %></p>
         </div>
         <hr />
     <% end %>
