@@ -16,7 +16,9 @@
       <% @following_tweets.each do |tweet| %>
         <div class="well" style='background-color: navy;' class='white'>
             <p class='semi'>
+              <% if tweet.user.avatar.blank? == false %>
               <%= image_tag tweet.user.avatar.url, class: "user-pic-nav", style: 'width: 67px; height: 67px;' %>
+              <% end %>
               <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %>
     <%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %> |
               <% if !tweet.user.tag.blank? %>
